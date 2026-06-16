@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import List from './List'
 
 
 export default function App() {
@@ -10,7 +11,7 @@ export default function App() {
   //   setName(event.target.value)
   // }
   function handleSumbit(e) {
-
+    
     e.preventDefault()
     const newGuest = {
       id: Date.now(),
@@ -23,6 +24,13 @@ export default function App() {
 
   }
 
+  function removeGuest (id) {
+    const newGuest = guests.filter((guest) => {
+      return guest.id !== id
+    })
+
+    setGuest(newGuest)
+  }
 
 
   return (
@@ -42,11 +50,7 @@ export default function App() {
       <br/>
       <h2>Guest List: </h2>
       <ul>
-        {guests.map((guest)=>{
-          return (
-            <li>Name: {guest.name} -- Email:{guest.email}</li>
-          )
-        })}
+        {guests.length === 0 ? <h3>No guest for now</h3> : <List guest={guests} onRemove={removeGuest}/>}
       </ul>
       
     </div>
